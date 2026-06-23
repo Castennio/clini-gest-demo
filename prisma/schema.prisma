@@ -1,0 +1,64 @@
+// Schema mínimo para demo de CliniGest
+// ponytail: 4 tablas, relaciones básicas, suficiente para demo de ventas
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Patient {
+  id           String        @id @default(cuid())
+  name         String
+  phone        String
+  email        String?
+  status       PatientStatus @default(ACTIVE)
+  createdAt    DateTime      @default(now())
+  appointments Appointment[]
+}
+
+model Therapist {
+  id           String        @id @default(cuid())
+  name         String
+  specialty    String
+  color        String        @default("#3B82F6") // ponytail: color para UI calendario
+  appointments Appointment[]
+}
+
+model Appointment {
+  id          String            @id @default(cuid())
+  patientId   String
+  therapistId String
+  dateTime    DateTime
+  duration    Int               @default(60) // minutos
+  status      AppointmentStatus @default(SCHEDULED)
+  patient     Patient           @relation(fields: [patientId], references: [id])
+  therapist   Therapist         @relation(fields: [therapistId], references: [id])
+  session     Session?
+}
+
+model Session {
+  id            String        @id @default(cuid())
+  appointmentId String        @unique
+  completed     Boolean       @default(false)
+  notes         String?
+  completedAt   DateTime?
+  appointment   Appointment   @relation(fields: [appointmentId], references: [id])
+}
+
+enum PatientStatus {
+  ACTIVE
+  INACTIVE
+  DISCHARGED
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
