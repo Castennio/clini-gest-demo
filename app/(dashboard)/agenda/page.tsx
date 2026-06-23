@@ -2,6 +2,8 @@ import { db } from "@/app/lib/db";
 import { CreateAppointmentButton } from "@/app/components/create-buttons";
 import { AgendaCalendar } from "@/app/components/agenda-calendar";
 
+export const dynamic = "force-dynamic";
+
 async function getWeekData() {
   const today = new Date();
   const monday = new Date(today);

@@ -2,6 +2,8 @@ import { db } from "@/app/lib/db";
 import { CreatePatientButton } from "@/app/components/create-buttons";
 import { PatientSearch } from "@/app/components/patient-search";
 
+export const dynamic = "force-dynamic";
+
 async function getPatients() {
   return db.patient.findMany({
     include: {

@@ -2,6 +2,8 @@ import { db } from "@/app/lib/db";
 import Link from "next/link";
 import { SessionActionButtons } from "@/app/components/session-actions";
 
+export const dynamic = "force-dynamic";
+
 async function getSessions() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);

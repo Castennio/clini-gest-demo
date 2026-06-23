@@ -2,6 +2,9 @@ import React from "react";
 import { db } from "@/app/lib/db";
 import Link from "next/link";
 
+// ponytail: forzar renderizado dinámico, no pre-render en build
+export const dynamic = "force-dynamic";
+
 // ponytail: queries directas, sin abstracción de "services"
 async function getStats() {
   const today = new Date();

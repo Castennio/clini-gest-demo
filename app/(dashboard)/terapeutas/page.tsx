@@ -1,6 +1,8 @@
 import { db } from "@/app/lib/db";
 import { CreateTherapistButton } from "@/app/components/create-buttons";
 
+export const dynamic = "force-dynamic";
+
 async function getTherapists() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
